@@ -14,3 +14,4 @@ require('./http/post/0.transfer');
 require('./http/post/1.second.secret');
 require('./http/post/2.delegate');
 require('./http/post/3.votes');
+require('./http/post/4.multisignature');

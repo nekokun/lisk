@@ -20,12 +20,17 @@ function getUnconfirmedTransaction (transaction, cb) {
 	http.get('/api/transactions/unconfirmed/get?id=' + transaction, httpCallbackHelper.bind(null, cb));
 }
 
+function getPendingMultisignatures (transaction, cb) {
+	console.log(transaction);
+	http.get('/api/multisignatures/pending?publicKey=' + transaction.senderPublicKey, httpCallbackHelper.bind(null, cb));
+}
+
 function sendTransaction (transaction, cb) {
 	http.post('/api/transactions', {transaction: transaction}, httpCallbackHelper.bind(null, cb));
 }
 
 function sendSignature (signature, transaction, cb) {
-	http.post('/api/signatures', {signature: signature, transaction: transaction.id}, httpCallbackHelper.bind(null, cb));
+	http.post('/api/signatures', {signature: {signature: signature, transaction: transaction.id}}, httpCallbackHelper.bind(null, cb));
 }
 
 function sendLISK (params, cb) {
@@ -42,6 +47,7 @@ function creditAccount (address, amount, cb) {
 module.exports = {
 	getTransaction: getTransaction,
 	getUnconfirmedTransaction: getUnconfirmedTransaction,
+	getPendingMultisignatures: getPendingMultisignatures,
 	sendSignature: sendSignature,
 	sendTransaction: sendTransaction,
 	sendLISK: sendLISK,
